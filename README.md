@@ -5,3 +5,4 @@ Project Description: The proposed solution is the development of an Android-base
 Through this structured feedback system, the app encourages players to apply logical reasoning, pattern recognition, and strategic thinking to narrow down possibilities with each turn. The user-friendly interface and real-time interaction make it accessible for students, puzzle lovers, and casual gamers who want to test and improve their analytical skills while competing with friends.
 Team Members: Abdurrhman Nesru, Amanuel Wondimu, Fetahadin Kedamo, Hikma Bedru and Tesfalem Mathewos
 Link for Figma:  https://www.figma.com/design/uczyrYSfCK8KKduaflBbW2/MAD-PROJECT?node-id=0-1&t=L70K3n0cccGE6Xbc-1
+Link for Jira:   https://tesfalemfillet.atlassian.net/jira/software/projects/SCRUM/boards/1
