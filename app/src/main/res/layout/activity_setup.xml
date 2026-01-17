@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+	android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="#87CEEB"
+	android:gravity="center">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Choose number of digits (4)"
+		android:textStyle="bold" 
+		android:paddingLeft="12dp"/>
+	
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="No zeros or repeated digits allowed"
+		
+		android:paddingLeft="12dp"/>
+
+	<!-- Player 1 -->
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Player 1" 
+		android:layout_marginTop="17dp" />
+
+	<EditText
+		android:id="@+id/etPlayer1Secret"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:hint="Enter your secret number"
+		android:inputType="numberPassword" />
+
+	<TextView
+		android:id="@+id/tvPlayer1Error"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textColor="#FF0000"
+		android:textSize="12sp" />
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<Button android:id="@+id/btnP1Set" android:text="Set" 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp" 
+			android:layout_marginBottom="8dp"
+			android:minHeight="48dp"
+			android:textSize="16sp"
+			android:textAllCaps="false"
+			android:background="#D2691E"
+			android:textColor="#FFFFFF"/>
+		<Button android:id="@+id/btnP1Clear" android:text="Clear" 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp" 
+			android:layout_marginBottom="8dp"
+			android:layout_marginLeft="48dp"
+			android:minHeight="48dp"
+			android:textSize="16sp"
+			android:textAllCaps="false"
+			android:background="#D2691E"
+			android:textColor="#FFFFFF"/>
+	</LinearLayout>
+
+	<!-- Player 2 -->
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Player 2"
+		android:layout_marginTop="16dp" />
+
+	<EditText
+		android:id="@+id/etPlayer2Secret"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:hint="Enter your secret number"
+		android:inputType="numberPassword" />
+
+	<TextView
+		android:id="@+id/tvPlayer2Error"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textColor="#FF0000"
+		android:textSize="12sp" />
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<Button android:id="@+id/btnP2Set" android:text="Set" 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp" 
+			android:layout_marginBottom="8dp"
+			android:minHeight="48dp"
+			android:textSize="16sp"
+			android:textAllCaps="false"
+			android:background="#D2691E"
+			android:textColor="#FFFFFF"/>
+		<Button android:id="@+id/btnP2Clear" 
+			android:text="Clear" 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp" 
+			android:layout_marginBottom="8dp"
+			android:layout_marginLeft="48dp"
+			android:minHeight="48dp"
+			android:textSize="16sp"
+			android:textAllCaps="false"
+			android:background="#D2691E"
+			android:textColor="#FFFFFF"/>
+	</LinearLayout>
+
+	<Button
+		android:id="@+id/btnStartGame"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Start Game"
+		android:layout_marginTop="40dp" 
+		android:layout_marginBottom="8dp"
+		android:paddingLeft="20dp"
+
+		android:paddingRight="20dp"
+
+		android:minHeight="48dp"
+		android:textSize="16sp"
+		android:textAllCaps="false"
+		android:alpha="0.4"
+		android:background="#D2691E"
+		android:textColor="#FFFFFF"/>
+
+</LinearLayout>

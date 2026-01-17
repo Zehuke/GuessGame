@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
+	android:background="#87CEEB"
+	
+	android:gravity="center_horizontal">
+
+
+    <EditText
+        android:id="@+id/etGuessP1"
+        android:hint="Player 1 guess"
+        android:inputType="number" 
+		android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	/>
+
+    <Button android:id="@+id/btnSubmitP1" android:text="Submit"
+		android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="10dp" 
+		android:layout_marginBottom="8dp"
+		android:layout_gravity="left"
+		android:minHeight="48dp"
+		android:textSize="16sp"
+		android:textAllCaps="false"
+		android:background="#D2691E"
+		android:textColor="#FFFFFF"
+	/>
+
+    <EditText
+        android:id="@+id/etGuessP2"
+        android:hint="Player 2 guess"
+        android:inputType="number" 
+		android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+	/>
+
+    <Button android:id="@+id/btnSubmitP2" android:text="Submit" 
+		android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_marginTop="10dp" 
+		android:layout_marginBottom="8dp"
+		android:layout_gravity="left"
+		android:minHeight="48dp"
+		android:textSize="16sp"
+		android:textAllCaps="false"
+		android:background="#D2691E"
+		android:textColor="#FFFFFF"
+	/>
+
+    <TextView
+        android:id="@+id/tvWaiting"
+        android:text="Waiting for the players..."
+        android:textSize="12sp" 
+		android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+	/>
+
+    <!-- Result Table Header -->
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<LinearLayout
+
+			android:orientation="vertical"
+		    android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="23dp"
+		>
+			<TextView
+				android:text="Player 1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+
+			<LinearLayout 
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+					android:text="Guess"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:textSize="9sp" />
+
+				<TextView
+					android:text="Number"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:textSize="9sp"/>
+
+				<TextView
+					android:text="Position"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:textSize="9sp"/>
+
+			</LinearLayout>
+
+
+	    </LinearLayout>
+
+
+
+		<LinearLayout
+
+			android:orientation="vertical"
+		    android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="16dp"
+			android:layout_marginTop="23dp"
+		>
+			<TextView
+				android:text="Player 2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			/>
+
+			<LinearLayout 
+				android:orientation="horizontal"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+			>
+
+				<TextView
+					android:text="Guess"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:textSize="9sp"/>
+
+				<TextView
+					android:text="Number"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:textSize="9sp"/>
+
+				<TextView
+					android:text="Position"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:textSize="9sp"/>
+
+			</LinearLayout>
+
+
+	    </LinearLayout>
+
+
+
+
+
+	</LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/resultContainer"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+</LinearLayout>
