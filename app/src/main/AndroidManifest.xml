@@ -21,6 +21,11 @@
 		    <activity android:name=".ResultActivity" />
     <activity android:name=".GameActivity" />
     <activity android:name=".SetupActivity" />
+	    <activity android:name=".ModeSelectActivity"/>
+<activity android:name=".OnlineLobbyActivity"/>
+ <activity android:name=".OnlineSetupActivity" />
+<activity android:name=".OnlineGameActivity" />
+<activity android:name=".OnlineResultActivity" />
         <activity android:name=".MainActivity">
 
             <intent-filter>

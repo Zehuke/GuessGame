@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="#87CEEB"
+    android:gravity="center_horizontal">
+
+    <!-- INPUT -->
+    <EditText
+        android:id="@+id/etGuess"
+        android:hint="Enter your guess"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:text="Submit"
+        android:layout_marginTop="8dp"
+        android:minHeight="48dp"
+        android:textAllCaps="false"
+        android:background="#D2691E"
+        android:textColor="#FFFFFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tvWaiting"
+        android:text="Waiting for other player..."
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="6dp"/>
+
+    <!-- TABLES -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <!-- YOU -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="YOU"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"/>
+
+            <!-- HEADER -->
+            <LinearLayout android:orientation="horizontal">
+                <TextView android:text="Guess" android:layout_weight="1"
+                    android:layout_width="0dp" android:textSize="10sp"
+                    android:textColor="#FFFFFF"/>
+                <TextView android:text="Number" android:layout_weight="1"
+                    android:layout_width="0dp" android:textSize="10sp"
+                    android:textColor="#FFFFFF"/>
+                <TextView android:text="Position" android:layout_weight="1"
+                    android:layout_width="0dp" android:textSize="10sp"
+                    android:textColor="#FFFFFF"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/containerYou"
+                android:orientation="vertical"/>
+        </LinearLayout>
+
+        <!-- OPPONENT -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="OPPONENT"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"/>
+
+            <!-- HEADER -->
+            <LinearLayout android:orientation="horizontal">
+                <TextView android:text="Guess" android:layout_weight="1"
+                    android:layout_width="0dp" android:textSize="10sp"
+                    android:textColor="#FFFFFF"/>
+                <TextView android:text="Number" android:layout_weight="1"
+                    android:layout_width="0dp" android:textSize="10sp"
+                    android:textColor="#FFFFFF"/>
+                <TextView android:text="Position" android:layout_weight="1"
+                    android:layout_width="0dp" android:textSize="10sp"
+                    android:textColor="#FFFFFF"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/containerOpponent"
+                android:orientation="vertical"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

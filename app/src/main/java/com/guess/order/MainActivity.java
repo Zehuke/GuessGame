@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
         btnPlay = findViewById(R.id.btnPlay);
 
         btnPlay.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, SetupActivity.class);
+            Intent intent = new Intent(MainActivity.this, ModeSelectActivity.class);
             startActivity(intent);
         });
     }
