@@ -1,5 +1,7 @@
 package com.guess.order;
 
+
+import com.google.firebase.FirebaseApp;
 import android.app.*;
 import android.os.*;
 
@@ -17,6 +19,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+		FirebaseApp.initializeApp(this);   
 
         btnPlay = findViewById(R.id.btnPlay);
 

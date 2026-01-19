@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
+
     defaultConfig {
         applicationId "com.guess.order"
         minSdkVersion 23
@@ -11,6 +12,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -18,18 +20,23 @@ android {
         }
     }
 
+    
+    packagingOptions {
+        exclude 'META-INF/com.android.tools/proguard/coroutines.pro'
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
