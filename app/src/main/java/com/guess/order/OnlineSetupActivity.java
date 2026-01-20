@@ -7,11 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,11 +19,13 @@ public class OnlineSetupActivity extends Activity {
     Button btnSet, btnClear;
 
     DatabaseReference roomRef;
+    ValueEventListener secretsListener;
 
     String roomCode;
-    String myRole; // "player1" or "player2"
+    String myRole;
+    String opponentRole;
 
-    boolean gameStarted = false;
+    private boolean gameStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +34,7 @@ public class OnlineSetupActivity extends Activity {
 
         roomCode = getIntent().getStringExtra("ROOM_CODE");
         myRole = getIntent().getStringExtra("MY_ROLE");
+        opponentRole = myRole.equals("player1") ? "player2" : "player1";
 
         roomRef = FirebaseDatabase.getInstance()
                 .getReference("rooms")
@@ -50,11 +49,8 @@ public class OnlineSetupActivity extends Activity {
         btnSet.setOnClickListener(v -> setSecret());
         btnClear.setOnClickListener(v -> clearSecret());
 
-        listenForOpponent();
-        listenForGameStart();
+        listenForSecrets();
     }
-
-    // ---------------- LOGIC ----------------
 
     private boolean isValidNumber(String number) {
         if (number.length() != 4) return false;
@@ -74,8 +70,8 @@ public class OnlineSetupActivity extends Activity {
             return;
         }
 
+        // Write the secret to Firebase
         roomRef.child("secrets").child(myRole).setValue(input);
-        roomRef.child("ready").child(myRole).setValue(true);
 
         etSecret.setEnabled(false);
         tvError.setText("Number set ✔");
@@ -87,57 +83,62 @@ public class OnlineSetupActivity extends Activity {
         etSecret.setEnabled(true);
         tvError.setText("");
 
-        roomRef.child("ready").child(myRole).setValue(false);
+        roomRef.child("secrets").child(myRole).removeValue();
     }
 
-    // ---------------- SYNC ----------------
-
-    private void listenForOpponent() {
-        roomRef.child("ready").addValueEventListener(new ValueEventListener() {
+    private void listenForSecrets() {
+        // Listen only to secrets node
+        secretsListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                boolean p1 = Boolean.TRUE.equals(
-                        snapshot.child("player1").getValue(Boolean.class));
-                boolean p2 = Boolean.TRUE.equals(
-                        snapshot.child("player2").getValue(Boolean.class));
+                if (gameStarted) return;
 
-                if (p1 && p2) {
-                    tvStatus.setText("Both players ready ✔");
-                }
-            }
+                String mySecret = snapshot.child(myRole).getValue(String.class);
+                String oppSecret = snapshot.child(opponentRole).getValue(String.class);
 
-            @Override
-            public void onCancelled(DatabaseError error) { }
-        });
-    }
-
-    private void listenForGameStart() {
-        roomRef.child("ready").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                Boolean p1 = snapshot.child("player1").getValue(Boolean.class);
-                Boolean p2 = snapshot.child("player2").getValue(Boolean.class);
-
-                if (Boolean.TRUE.equals(p1) && Boolean.TRUE.equals(p2)) {
+                // Update opponent status dynamically
+                if (mySecret != null && oppSecret == null) {
+                    tvStatus.setText("Waiting for opponent...");
+                } else if (oppSecret != null && mySecret == null) {
+                    tvStatus.setText("Opponent ready. Enter your number!");
+                } else if (oppSecret != null && mySecret != null) {
+                    // Both secrets exist, start game safely
                     startGameOnce();
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) { }
-        });
+            public void onCancelled(DatabaseError error) {}
+        };
+
+        roomRef.child("secrets").addValueEventListener(secretsListener);
     }
 
     private void startGameOnce() {
         if (gameStarted) return;
         gameStarted = true;
 
+        // Mark as started once, so only one write happens
         roomRef.child("started").setValue(true);
 
-        Intent intent = new Intent(this, OnlineGameActivity.class);
+        // Remove listener before moving to game
+        if (secretsListener != null) {
+            roomRef.child("secrets").removeEventListener(secretsListener);
+        }
+
+        Intent intent = new Intent(OnlineSetupActivity.this, OnlineGameActivity.class);
         intent.putExtra("ROOM_CODE", roomCode);
         intent.putExtra("MY_ROLE", myRole);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (roomRef != null && secretsListener != null) {
+            roomRef.child("secrets").removeEventListener(secretsListener);
+        }
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.*;
+
 import com.google.firebase.database.*;
 
 import java.util.Random;
@@ -15,6 +16,7 @@ public class OnlineLobbyActivity extends Activity {
     TextView tvStatus;
 
     DatabaseReference roomsRef;
+    ValueEventListener playersListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +34,26 @@ public class OnlineLobbyActivity extends Activity {
         btnJoin.setOnClickListener(v -> joinRoom());
     }
 
+    // ---------------- CREATE ROOM ----------------
     private void createRoom() {
         String code = generateRoomCode();
-
         DatabaseReference room = roomsRef.child(code);
-        room.child("status").setValue("waiting");
-        room.child("player1").setValue("connected");
 
-        tvStatus.setText("Room created: " + code);
+        // Remove old data
+        room.removeValue();
+        room.child("secrets").removeValue();
+        room.child("guesses").removeValue();
+        room.child("started").removeValue();
 
-        waitForPlayer(code);
+        // Add host player
+        room.child("players").child("player1").setValue(true);
+
+        tvStatus.setText("Room created: " + code + "\nWaiting for player…");
+
+        waitForSecondPlayer(code);
     }
 
+    // ---------------- JOIN ROOM ----------------
     private void joinRoom() {
         String code = etRoomCode.getText().toString().trim();
 
@@ -54,18 +64,17 @@ public class OnlineLobbyActivity extends Activity {
 
         DatabaseReference room = roomsRef.child(code);
 
-        room.addListenerForSingleValueEvent(new ValueEventListener() {
+        room.child("players").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
-                    tvStatus.setText("Room not found");
+                if (!snapshot.exists() || snapshot.hasChild("player2")) {
+                    tvStatus.setText("Room unavailable");
                     return;
                 }
 
-                room.child("player2").setValue("connected");
-                room.child("status").setValue("ready");
+                room.child("players").child("player2").setValue(true);
 
-                startOnlineGame(code, false);
+                startSetup(code, false);
             }
 
             @Override
@@ -75,29 +84,39 @@ public class OnlineLobbyActivity extends Activity {
         });
     }
 
-    private void waitForPlayer(String code) {
-        roomsRef.child(code).child("status")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        if ("ready".equals(snapshot.getValue(String.class))) {
-                            startOnlineGame(code, true);
-                        }
-                    }
+    // ---------------- WAIT HOST ----------------
+    private void waitForSecondPlayer(String code) {
+        playersListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.hasChild("player2")) {
+                    roomsRef.child(code)
+                            .child("players")
+                            .removeEventListener(this);
 
-                    @Override
-                    public void onCancelled(DatabaseError error) {}
-                });
+                    startSetup(code, true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {}
+        };
+
+        roomsRef.child(code)
+                .child("players")
+                .addValueEventListener(playersListener);
     }
 
-    private void startOnlineGame(String code, boolean isHost) {
-    Intent intent = new Intent(this, OnlineGameActivity.class);
-    intent.putExtra("ROOM_CODE", code);
-    intent.putExtra("IS_HOST", isHost);
-    startActivity(intent);
-    finish();
-}
+    // ---------------- NAVIGATION ----------------
+    private void startSetup(String code, boolean isHost) {
+        Intent intent = new Intent(OnlineLobbyActivity.this, OnlineSetupActivity.class);
+        intent.putExtra("ROOM_CODE", code);
+        intent.putExtra("MY_ROLE", isHost ? "player1" : "player2");
+        startActivity(intent);
+        finish();
+    }
 
+    // ---------------- UTIL ----------------
     private String generateRoomCode() {
         String chars = "ABCDEFGHJKLMNPQRSTUVWXYZ123456789";
         Random r = new Random();
