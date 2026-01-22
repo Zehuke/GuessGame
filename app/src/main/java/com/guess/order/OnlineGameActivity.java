@@ -253,7 +253,7 @@ public class OnlineGameActivity extends Activity {
         tv.setLayoutParams(params);
         tv.setText(text);
         tv.setTextSize(12);
-        tv.setTextColor(Color.WHITE);
+        tv.setTextColor(Color.BLACK);
         return tv;
     }
 

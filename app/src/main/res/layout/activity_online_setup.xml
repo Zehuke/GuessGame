@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#87CEEB"
+    android:background="@drawable/home_background"
     android:gravity="center"
     android:padding="16dp">
 
@@ -28,7 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter your secret"
-        android:inputType="numberPassword"/>
+        android:inputType="numberPassword"
+		android:background="@drawable/rounded_edit_text"/>
 
     <TextView
         android:id="@+id/tvError"
@@ -45,24 +46,24 @@
 
         <Button
             android:id="@+id/btnSet"
-            android:text="Set"
-            android:minHeight="48dp"
-            android:textAllCaps="false"
-            android:background="#D2691E"
-            android:textColor="#FFFFFF"
+            android:text="Set"         
+            android:textAllCaps="false"              
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+		    android:minHeight="48dp"
+	        android:textColor="#FFFFFF"
+		    android:background="@drawable/rounded_button"/>
 
         <Button
             android:id="@+id/btnClear"
-            android:text="Clear"
-            android:minHeight="48dp"
-            android:textAllCaps="false"
-            android:background="#D2691E"
-            android:textColor="#FFFFFF"
+            android:text="Clear"          
+            android:textAllCaps="false"                 
             android:layout_marginLeft="24dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+		    android:minHeight="48dp"
+	        android:textColor="#FFFFFF"
+		    android:background="@drawable/rounded_button"/>
     </LinearLayout>
 
     <TextView

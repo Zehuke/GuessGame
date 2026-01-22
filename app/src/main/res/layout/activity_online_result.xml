@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#87CEEB"
+    android:background="@drawable/home_background"
     android:gravity="center"
     android:padding="16dp">
 
@@ -38,7 +38,7 @@
             android:minHeight="48dp"
             android:textSize="16sp"
             android:textAllCaps="false"
-            android:background="#D2691E"
+            android:background="@drawable/rounded_button"
             android:textColor="#FFFFFF"/>
 
         <Button
@@ -50,7 +50,7 @@
             android:minHeight="48dp"
             android:textSize="16sp"
             android:textAllCaps="false"
-            android:background="#D2691E"
+            android:background="@drawable/rounded_button"
             android:textColor="#FFFFFF"/>
     </LinearLayout>
 

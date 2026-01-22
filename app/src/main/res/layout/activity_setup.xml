@@ -3,7 +3,7 @@
     android:orientation="vertical"
 	android:layout_width="match_parent"
     android:layout_height="match_parent"
-	android:background="#87CEEB"
+	android:background="@drawable/home_background"
 	android:gravity="center">
 
 	<TextView
@@ -17,7 +17,6 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="No zeros or repeated digits allowed"
-		
 		android:paddingLeft="12dp"/>
 
 	<!-- Player 1 -->
@@ -32,7 +31,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:hint="Enter your secret number"
-		android:inputType="numberPassword" />
+		android:inputType="numberPassword"
+		android:background="@drawable/rounded_edit_text" />
 
 	<TextView
 		android:id="@+id/tvPlayer1Error"
@@ -46,7 +46,9 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal">
 
-		<Button android:id="@+id/btnP1Set" android:text="Set" 
+		<Button
+			android:id="@+id/btnP1Set"
+			android:text="Set" 
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="10dp" 
@@ -54,9 +56,12 @@
 			android:minHeight="48dp"
 			android:textSize="16sp"
 			android:textAllCaps="false"
-			android:background="#D2691E"
+			android:background="@drawable/rounded_button"
 			android:textColor="#FFFFFF"/>
-		<Button android:id="@+id/btnP1Clear" android:text="Clear" 
+
+		<Button
+			android:id="@+id/btnP1Clear"
+			android:text="Clear" 
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="10dp" 
@@ -65,7 +70,7 @@
 			android:minHeight="48dp"
 			android:textSize="16sp"
 			android:textAllCaps="false"
-			android:background="#D2691E"
+			android:background="@drawable/rounded_button"
 			android:textColor="#FFFFFF"/>
 	</LinearLayout>
 
@@ -81,7 +86,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:hint="Enter your secret number"
-		android:inputType="numberPassword" />
+		android:inputType="numberPassword"
+		android:background="@drawable/rounded_edit_text" />
 
 	<TextView
 		android:id="@+id/tvPlayer2Error"
@@ -95,7 +101,9 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal">
 
-		<Button android:id="@+id/btnP2Set" android:text="Set" 
+		<Button
+			android:id="@+id/btnP2Set"
+			android:text="Set" 
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="10dp" 
@@ -103,9 +111,11 @@
 			android:minHeight="48dp"
 			android:textSize="16sp"
 			android:textAllCaps="false"
-			android:background="#D2691E"
+			android:background="@drawable/rounded_button"
 			android:textColor="#FFFFFF"/>
-		<Button android:id="@+id/btnP2Clear" 
+
+		<Button
+			android:id="@+id/btnP2Clear" 
 			android:text="Clear" 
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -115,7 +125,7 @@
 			android:minHeight="48dp"
 			android:textSize="16sp"
 			android:textAllCaps="false"
-			android:background="#D2691E"
+			android:background="@drawable/rounded_button"
 			android:textColor="#FFFFFF"/>
 	</LinearLayout>
 
@@ -127,14 +137,12 @@
 		android:layout_marginTop="40dp" 
 		android:layout_marginBottom="8dp"
 		android:paddingLeft="20dp"
-
 		android:paddingRight="20dp"
-
 		android:minHeight="48dp"
 		android:textSize="16sp"
 		android:textAllCaps="false"
 		android:alpha="0.4"
-		android:background="#D2691E"
+		android:background="@drawable/rounded_button"
 		android:textColor="#FFFFFF"/>
 
 </LinearLayout>

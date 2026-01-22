@@ -49,7 +49,7 @@ public class GameActivity extends Activity {
             guessP1 = input;
             attemptsP1++;
             tvWaiting.setText("Player 1 submitted. Waiting for Player 2...");
-			tvWaiting.setTextColor(Color.WHITE);
+			tvWaiting.setTextColor(Color.BLACK);
             checkBothSubmitted();
         });
 
@@ -64,7 +64,7 @@ public class GameActivity extends Activity {
             guessP2 = input;
             attemptsP2++;
             tvWaiting.setText("Player 2 submitted. Waiting for Player 1...");
-			tvWaiting.setTextColor(Color.WHITE);
+			tvWaiting.setTextColor(Color.BLACK);
             checkBothSubmitted();
         });
     }
@@ -189,12 +189,12 @@ p2PosTv.setLayoutParams(p2PosParams);
     p2PosTv.setTextSize(12);
 	
 	//--- Set text color to white ---
-p1GuessTv.setTextColor(Color.WHITE);
-p1NumTv.setTextColor(Color.WHITE);
-p1PosTv.setTextColor(Color.WHITE);
-p2GuessTv.setTextColor(Color.WHITE);
-p2NumTv.setTextColor(Color.WHITE);
-p2PosTv.setTextColor(Color.WHITE);
+p1GuessTv.setTextColor(Color.BLACK);
+p1NumTv.setTextColor(Color.BLACK);
+p1PosTv.setTextColor(Color.BLACK);
+p2GuessTv.setTextColor(Color.BLACK);
+p2NumTv.setTextColor(Color.BLACK);
+p2PosTv.setTextColor(Color.BLACK);
 
     // Add all 6 cells
     row.addView(p1GuessTv);

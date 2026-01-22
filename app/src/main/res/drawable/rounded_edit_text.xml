@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- White background fill (change color if needed) -->
+    <solid android:color="#FFFFFF" />
+
+    <!-- Black border (stroke) -->
+    <stroke
+        android:width="2dp"
+        android:color="#000000" />  <!-- Pure black; use #333333 for softer dark gray if preferred -->
+
+    <!-- Rounded corners – adjust radius to taste (16dp–24dp looks modern) -->
+    <corners android:radius="16dp" />
+
+    <!-- Optional: internal padding so text doesn't touch the border -->
+    <padding
+        android:left="12dp"
+        android:top="12dp"
+        android:right="12dp"
+        android:bottom="12dp" />
+
+</shape>

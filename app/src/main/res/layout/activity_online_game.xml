@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="12dp"
-    android:background="#87CEEB"
+    android:background="@drawable/game_activity_background"
     android:gravity="center_horizontal">
 
     <!-- PLAYER INPUT -->
@@ -12,18 +12,19 @@
         android:id="@+id/etGuess"
         android:hint="Your guess"
         android:inputType="number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:background="@drawable/rounded_edit_text"/>
 
     <Button
         android:id="@+id/btnSubmit"
         android:text="Submit"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:minHeight="48dp"
         android:textAllCaps="false"
-        android:background="#D2691E"
+        android:background="@drawable/rounded_button"
         android:textColor="#FFFFFF"/>
 
 
@@ -32,7 +33,8 @@
         android:id="@+id/tvWaiting"
         android:text="Waiting for opponent..."
         android:textSize="12sp"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
+		android:textStyle="bold" 
         android:layout_marginTop="6dp"
 		android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +56,9 @@
 			android:layout_height="wrap_content"
 			>
 
-            <TextView android:text="YOU" android:textColor="#FFFFFF"
+            <TextView android:text="YOU" 
+			android:textColor="#000000"
+		android:textStyle="bold" 
 			android:layout_width="wrap_content"
            android:layout_height="wrap_content"
 			/>
@@ -64,20 +68,23 @@
         android:layout_height="wrap_content"
 			>
                 <TextView android:text="Guess" android:layout_weight="1"
-                    android:layout_width="0dp" 
+                    android:layout_width="0dp"
+					android:textStyle="bold" 
 					android:layout_height="wrap_content"
 					android:textSize="9sp"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#000000"/>
                 <TextView android:text="Number" android:layout_weight="1"
                     android:layout_width="0dp" 
+				android:textStyle="bold" 
 				    android:layout_height="wrap_content"
 					android:textSize="9sp"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#000000"/>
                 <TextView android:text="Position" android:layout_weight="1"
                     android:layout_width="0dp" 
+				android:textStyle="bold" 
 				    android:layout_height="wrap_content"
 					android:textSize="9sp"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#000000"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -90,8 +97,9 @@
 
             <TextView android:text="OPPONENT" 
 			android:layout_width="wrap_content"
+		android:textStyle="bold" 
            android:layout_height="wrap_content"
-			android:textColor="#FFFFFF"/>
+			android:textColor="#000000"/>
 
             <LinearLayout android:orientation="horizontal"
 		android:layout_width="match_parent"
@@ -99,19 +107,22 @@
 			>
                 <TextView android:text="Guess" android:layout_weight="1"
                     android:layout_width="0dp" 
+				android:textStyle="bold" 
 				   android:layout_height="wrap_content"
 					android:textSize="9sp"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#000000"/>
                 <TextView android:text="Number" android:layout_weight="1"
                     android:layout_width="0dp" 
+				android:textStyle="bold" 
 				    android:layout_height="wrap_content"
 					android:textSize="9sp"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#000000"/>
                 <TextView android:text="Position" android:layout_weight="1"
                     android:layout_width="0dp" 
+				android:textStyle="bold" 
 				    android:layout_height="wrap_content"
 					android:textSize="9sp"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#000000"/>
             </LinearLayout>
         </LinearLayout>
 

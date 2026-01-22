@@ -3,18 +3,25 @@
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp">
+    android:padding="24dp"
+	android:background="@drawable/home_background">
 
     <Button
         android:id="@+id/btnOffline"
         android:text="Offline Game"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+		android:minHeight="48dp"
+	    android:textColor="#FFFFFF"
+		android:background="@drawable/rounded_button"/>
 
     <Button
         android:id="@+id/btnOnline"
         android:text="Online Game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+	    android:minHeight="48dp"
+		android:textColor="#FFFFFF"
+	    android:background="@drawable/rounded_button"/>
 </LinearLayout>
