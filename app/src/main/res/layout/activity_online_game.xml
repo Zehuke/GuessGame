@@ -7,16 +7,16 @@
     android:background="#87CEEB"
     android:gravity="center_horizontal">
 
-    <!-- PLAYER 1 INPUT -->
+    <!-- PLAYER INPUT -->
     <EditText
-        android:id="@+id/etGuessP1"
+        android:id="@+id/etGuess"
         android:hint="Your guess"
         android:inputType="number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@+id/btnSubmitP1"
+        android:id="@+id/btnSubmit"
         android:text="Submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,24 +26,7 @@
         android:background="#D2691E"
         android:textColor="#FFFFFF"/>
 
-    <!-- PLAYER 2 INPUT -->
-    <EditText
-        android:id="@+id/etGuessP2"
-        android:hint="Your guess"
-        android:inputType="number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/btnSubmitP2"
-        android:text="Submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:minHeight="48dp"
-        android:textAllCaps="false"
-        android:background="#D2691E"
-        android:textColor="#FFFFFF"/>
 
     <TextView
         android:id="@+id/tvWaiting"

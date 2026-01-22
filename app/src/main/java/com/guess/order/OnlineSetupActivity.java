@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.*;
 
@@ -20,6 +21,9 @@ public class OnlineSetupActivity extends Activity {
 
     DatabaseReference roomRef;
     ValueEventListener secretsListener;
+	     DatabaseReference myPlayerRef;
+         DatabaseReference opponentPlayerRef;
+         ValueEventListener opponentListener;
 
     String roomCode;
     String myRole;
@@ -39,6 +43,13 @@ public class OnlineSetupActivity extends Activity {
         roomRef = FirebaseDatabase.getInstance()
                 .getReference("rooms")
                 .child(roomCode);
+				
+	    myPlayerRef = roomRef.child("players").child(myRole);
+        opponentPlayerRef = roomRef.child("players").child(opponentRole);
+		
+		myPlayerRef.onDisconnect().setValue(false);
+		
+		listenForOpponentDisconnect();
 
         etSecret = findViewById(R.id.etSecret);
         tvError = findViewById(R.id.tvError);
@@ -50,6 +61,7 @@ public class OnlineSetupActivity extends Activity {
         btnClear.setOnClickListener(v -> clearSecret());
 
         listenForSecrets();
+		
     }
 
     private boolean isValidNumber(String number) {
@@ -113,6 +125,66 @@ public class OnlineSetupActivity extends Activity {
 
         roomRef.child("secrets").addValueEventListener(secretsListener);
     }
+	
+	
+	private void listenForOpponentDisconnect() {
+
+    opponentListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot snapshot) {
+            Boolean online = snapshot.getValue(Boolean.class);
+
+            if (online != null && !online) {
+                opponentDisconnected();
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError error) {}
+    };
+
+    opponentPlayerRef.addValueEventListener(opponentListener);
+    }
+	
+	
+	private void opponentDisconnected() {
+
+    Toast.makeText(
+            this,
+            "Opponent disconnected",
+            Toast.LENGTH_LONG
+    ).show();
+
+    roomRef.removeValue(); // delete room
+
+    Intent intent = new Intent(this, MainActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
+    finish();
+    }
+	
+	
+    @Override
+    public void onBackPressed() {
+
+    // Mark player offline
+    if (myPlayerRef != null) {
+        myPlayerRef.setValue(false);
+    }
+
+    // If host, delete room immediately
+    if ("player1".equals(myRole) && roomRef != null) {
+        roomRef.removeValue();
+    }
+
+    // Navigate back safely
+    Intent intent = new Intent(this, MainActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
+    finish();
+   }
+	
+	
 
     private void startGameOnce() {
         if (gameStarted) return;
@@ -136,9 +208,14 @@ public class OnlineSetupActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        if (roomRef != null && secretsListener != null) {
-            roomRef.child("secrets").removeEventListener(secretsListener);
-        }
-    }
+    super.onDestroy();
+
+    if (secretsListener != null) {
+        roomRef.child("secrets").removeEventListener(secretsListener);
+     } 
+
+    if (opponentListener != null) {
+        opponentPlayerRef.removeEventListener(opponentListener);
+     }
+    }  
 }

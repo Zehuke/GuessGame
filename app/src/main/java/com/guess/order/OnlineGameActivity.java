@@ -13,8 +13,8 @@ import java.util.Set;
 
 public class OnlineGameActivity extends Activity {
 
-    EditText etGuessP1, etGuessP2;
-    Button btnSubmitP1, btnSubmitP2;
+    EditText etGuess;
+    Button btnSubmit;
     TextView tvWaiting;
     LinearLayout resultContainer;
 
@@ -28,11 +28,14 @@ public class OnlineGameActivity extends Activity {
     String opponentRole;
 
     DatabaseReference roomRef;
-
-    boolean secretsLoaded = false;
+    DatabaseReference myPlayerRef;
+    DatabaseReference opponentPlayerRef;
 
     ValueEventListener secretsListener;
     ValueEventListener guessesListener;
+    ValueEventListener opponentListener;
+
+    boolean secretsLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,30 +46,28 @@ public class OnlineGameActivity extends Activity {
         myRole = getIntent().getStringExtra("MY_ROLE");
         opponentRole = myRole.equals("player1") ? "player2" : "player1";
 
-        etGuessP1 = findViewById(R.id.etGuessP1);
-        etGuessP2 = findViewById(R.id.etGuessP2);
-        btnSubmitP1 = findViewById(R.id.btnSubmitP1);
-        btnSubmitP2 = findViewById(R.id.btnSubmitP2);
-        tvWaiting = findViewById(R.id.tvWaiting);
-        resultContainer = findViewById(R.id.resultContainer);
-
-        if (myRole.equals("player1")) {
-            etGuessP2.setEnabled(false);
-            btnSubmitP2.setEnabled(false);
-        } else {
-            etGuessP1.setEnabled(false);
-            btnSubmitP1.setEnabled(false);
-        }
-
         roomRef = FirebaseDatabase.getInstance()
                 .getReference("rooms")
                 .child(roomCode);
 
+        myPlayerRef = roomRef.child("players").child(myRole);
+        opponentPlayerRef = roomRef.child("players").child(opponentRole);
+
+        // Ensure Firebase removes player if connection is lost
+        myPlayerRef.onDisconnect().setValue(false);
+
+        // Listen for opponent disconnects
+        listenForOpponentDisconnect();
+
+        etGuess = findViewById(R.id.etGuess);
+        btnSubmit = findViewById(R.id.btnSubmit);
+        tvWaiting = findViewById(R.id.tvWaiting);
+        resultContainer = findViewById(R.id.resultContainer);
+
         tvWaiting.setText("Loading secrets...");
         loadSecrets();
 
-        btnSubmitP1.setOnClickListener(v -> submitGuessP1());
-        btnSubmitP2.setOnClickListener(v -> submitGuessP2());
+        btnSubmit.setOnClickListener(v -> submitGuess());
 
         listenForOpponentGuess();
     }
@@ -76,14 +77,12 @@ public class OnlineGameActivity extends Activity {
         secretsListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
                 mySecret = snapshot.child(myRole).getValue(String.class);
                 opponentSecret = snapshot.child(opponentRole).getValue(String.class);
 
                 if (mySecret != null && opponentSecret != null) {
                     secretsLoaded = true;
                     tvWaiting.setText("");
-
                     roomRef.child("secrets").removeEventListener(secretsListener);
                 }
             }
@@ -98,16 +97,40 @@ public class OnlineGameActivity extends Activity {
     }
 
     private void listenForOpponentGuess() {
-        guessesListener = new ValueEventListener() {
+    guessesListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot snapshot) {
+
+            opponentGuess = snapshot.child(opponentRole)
+                    .getValue(String.class);
+
+            // Opponent has submitted but you haven't yet
+            if (opponentGuess != null && myGuess == null) {
+                tvWaiting.setText("Opponent has submitted. Your turn.");
+            }
+
+            // Both guesses exist → process round
+            if (myGuess != null && opponentGuess != null) {
+                processRound();
+                roomRef.child("guesses").setValue(null);
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError error) {}
+    };
+
+    roomRef.child("guesses").addValueEventListener(guessesListener);
+    } 
+
+    private void listenForOpponentDisconnect() {
+        opponentListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                Boolean online = snapshot.getValue(Boolean.class);
 
-                opponentGuess = snapshot.child(opponentRole)
-                        .getValue(String.class);
-
-                if (myGuess != null && opponentGuess != null) {
-                    processRound();
-                    roomRef.child("guesses").setValue(null);
+                if (online != null && !online) {
+                    opponentDisconnected();
                 }
             }
 
@@ -115,48 +138,72 @@ public class OnlineGameActivity extends Activity {
             public void onCancelled(DatabaseError error) {}
         };
 
-        roomRef.child("guesses").addValueEventListener(guessesListener);
+        opponentPlayerRef.addValueEventListener(opponentListener);
     }
+
+    private void opponentDisconnected() {
+        Toast.makeText(this, "Opponent disconnected", Toast.LENGTH_LONG).show();
+
+        // If host, delete room; if guest, just leave
+        if (myRole.equals("player1")) {
+            roomRef.removeValue();
+        }
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+	
+	
+	@Override
+    public void onBackPressed() {
+
+    // Mark player offline
+    if (myPlayerRef != null) {
+        myPlayerRef.setValue(false);
+    }
+
+    // If host, delete room immediately
+    if ("player1".equals(myRole) && roomRef != null) {
+        roomRef.removeValue();
+    }
+
+    // Navigate back safely
+    Intent intent = new Intent(this, MainActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
+    finish();
+    }
+	
+	
 
     // ---------------- GAME LOGIC ----------------
-    private void submitGuessP1() {
-        if (!myRole.equals("player1") || !secretsLoaded) return;
-        handleSubmit(etGuessP1);
-    }
+    private void submitGuess() {
+        if (!secretsLoaded) return;
 
-    private void submitGuessP2() {
-        if (!myRole.equals("player2") || !secretsLoaded) return;
-        handleSubmit(etGuessP2);
-    }
-
-    private void handleSubmit(EditText input) {
-        String guess = input.getText().toString().trim();
+        String guess = etGuess.getText().toString().trim();
 
         if (!isValidGuess(guess)) {
-            input.setError("Invalid guess");
+            etGuess.setError("Invalid guess");
             return;
         }
 
         attempts++;
         myGuess = guess;
-        input.setText("");
+        etGuess.setText("");
         tvWaiting.setText("Waiting for opponent...");
 
         roomRef.child("guesses").child(myRole).setValue(myGuess);
     }
 
     private void processRound() {
-
         tvWaiting.setText("");
 
         int[] myResult = calculateResult(myGuess, opponentSecret);
         int[] opponentResult = calculateResult(opponentGuess, mySecret);
 
-        if (myRole.equals("player1")) {
-            addResultRow(myGuess, myResult, opponentGuess, opponentResult);
-        } else {
-            addResultRow(opponentGuess, opponentResult, myGuess, myResult);
-        }
+        addResultRow(myGuess, myResult, opponentGuess, opponentResult);
 
         checkWin(myResult, opponentResult);
 
@@ -164,7 +211,7 @@ public class OnlineGameActivity extends Activity {
         opponentGuess = null;
     }
 
-    // ---------------- UTIL ----------------
+    // ---------------- UTILS ----------------
     private boolean isValidGuess(String guess) {
         if (guess.length() != 4 || guess.contains("0")) return false;
         Set<Character> set = new HashSet<>();
@@ -173,30 +220,28 @@ public class OnlineGameActivity extends Activity {
     }
 
     private int[] calculateResult(String guess, String secret) {
-        int trueCount = 0, position = 0;
+        int correct = 0, position = 0;
         for (int i = 0; i < 4; i++) {
             if (guess.charAt(i) == secret.charAt(i)) position++;
-            if (secret.indexOf(guess.charAt(i)) != -1) trueCount++;
+            if (secret.indexOf(guess.charAt(i)) != -1) correct++;
         }
-        return new int[]{trueCount, position};
+        return new int[]{correct, position};
     }
 
-    private void addResultRow(String p1Guess, int[] p1Result, String p2Guess, int[] p2Result) {
-
+    private void addResultRow(String myGuess, int[] myResult, String oppGuess, int[] oppResult) {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
 
         LinearLayout.LayoutParams cell =
-                new LinearLayout.LayoutParams(0,
-                        LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+                new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
 
         TextView[] cells = {
-                createCell(p1Guess, cell),
-                createCell(String.valueOf(p1Result[0]), cell),
-                createCell(String.valueOf(p1Result[1]), cell),
-                createCell(p2Guess, cell),
-                createCell(String.valueOf(p2Result[0]), cell),
-                createCell(String.valueOf(p2Result[1]), cell)
+                createCell(myGuess, cell),
+                createCell(String.valueOf(myResult[0]), cell),
+                createCell(String.valueOf(myResult[1]), cell),
+                createCell(oppGuess, cell),
+                createCell(String.valueOf(oppResult[0]), cell),
+                createCell(String.valueOf(oppResult[1]), cell)
         };
 
         for (TextView tv : cells) row.addView(tv);
@@ -214,23 +259,39 @@ public class OnlineGameActivity extends Activity {
 
     private void checkWin(int[] myResult, int[] opponentResult) {
 
-        boolean youWin = myResult[1] == 4;
-        boolean opponentWin = opponentResult[1] == 4;
+    boolean youWin = myResult[1] == 4;
+    boolean opponentWin = opponentResult[1] == 4;
 
-        if (youWin || opponentWin) {
+    if (youWin || opponentWin) {
 
+        if (guessesListener != null) {
             roomRef.child("guesses").removeEventListener(guessesListener);
-
-            Intent intent = new Intent(this, OnlineResultActivity.class);
-
-            if (youWin && opponentWin) intent.putExtra("RESULT", "DRAW");
-            else if (youWin) intent.putExtra("RESULT", "YOU WIN");
-            else intent.putExtra("RESULT", "YOU LOSE");
-
-            intent.putExtra("ATTEMPTS", attempts);
-            intent.putExtra("ROOM_CODE", roomCode);
-            startActivity(intent);
-            finish();
         }
+
+        // Delete room when game ends
+        roomRef.removeValue();
+
+        Intent intent = new Intent(this, OnlineResultActivity.class);
+
+        if (youWin && opponentWin) intent.putExtra("RESULT", "DRAW");
+        else if (youWin) intent.putExtra("RESULT", "YOU WIN");
+        else intent.putExtra("RESULT", "YOU LOSE");
+
+        intent.putExtra("ATTEMPTS", attempts);
+        intent.putExtra("MY_SECRET", mySecret);
+        intent.putExtra("OPPONENT_SECRET", opponentSecret);
+
+        startActivity(intent);
+        finish();
+    }
+    }  
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (secretsListener != null) roomRef.child("secrets").removeEventListener(secretsListener);
+        if (guessesListener != null) roomRef.child("guesses").removeEventListener(guessesListener);
+        if (opponentListener != null) opponentPlayerRef.removeEventListener(opponentListener);
     }
 }

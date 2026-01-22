@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="#6200EE"/>
+    <!-- Bottom layer: White "shadow" (visible around all edges) -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" /> <!-- White color for shadow effect -->
+            <corners android:radius="28dp" /> <!-- Slightly larger radius to smooth the edges -->
+        </shape>
+    </item>
 
-    <corners android:radius="24dp"/>
+    <!-- Top layer: Purple background, inset to show white around edges -->
+    <item
+        android:bottom="4dp"
+        android:left="4dp"
+        android:right="4dp"
+        android:top="4dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/purple_500" />
+            <corners android:radius="24dp" />
+            <padding
+                android:bottom="10dp"
+                android:left="16dp"
+                android:right="16dp"
+                android:top="10dp" />
+        </shape>
+    </item>
 
-    <padding
-        android:left="16dp"
-        android:top="10dp"
-        android:right="16dp"
-        android:bottom="10dp"/>
-</shape>
+</layer-list>

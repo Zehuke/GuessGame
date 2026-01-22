@@ -4,40 +4,72 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#87CEEB">
+    android:background="@drawable/home_background">
 
     <TextView
+        android:id="@+id/tvTitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="True"
+        android:textSize="32sp"
+        android:textStyle="bold" 
+		
+		android:fontFamily="@font/rubik_storm_regular"
+	    
+		/>
+		
+		
+		 <TextView
+        android:id="@+id/tvTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&amp;"
+        android:textSize="23sp"
+        android:textStyle="bold" 
+		
+		android:fontFamily="@font/rubik_storm_regular"
+	    
+		/>
+		
+	 <TextView
+        android:id="@+id/tvTitle3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Position"
+        android:textSize="23sp"
+        android:textStyle="bold" 
+		
+		android:fontFamily="@font/rubik_storm_regular"
+	    
+		/>
+		
+	 <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="True And Position Guess Game"
-        android:textSize="22sp"
+        android:text="Guess Game"
+        android:textSize="32sp"
         android:textStyle="bold" 
-		android:layout_marginTop="8dp"
-	    
-android:layout_marginBottom="8dp"
-		android:padding="8dp"/>
+		
+		android:fontFamily="@font/rubik_storm_regular"
+	    android:layout_marginBottom="8dp"
+		/>
 
-    <TextView
-        android:id="@+id/tvSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2 Player Guess Game"
-        android:textSize="14sp"
-        android:layout_marginTop="8dp"
-		android:layout_marginBottom="8dp"/>
+    
 
     <Button
         android:id="@+id/btnPlay"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Play"
         android:layout_marginTop="40dp" 
 		android:layout_marginBottom="8dp"
+		android:layout_marginLeft="8dp"
+	    android:layout_marginRight="8dp"
 		android:minHeight="48dp"
 		android:textSize="16sp"
 		android:textAllCaps="false"
-		android:background="#D2691E"
+		android:background="@drawable/rounded_button"
 		android:textColor="#FFFFFF"/>
-         android:background="@drawable/rounded_button"
+        
 </LinearLayout>

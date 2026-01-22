@@ -22,7 +22,7 @@ public class SetupActivity extends Activity {
     TextView tvP1Error, tvP2Error;
     Button btnP1Set, btnP1Clear, btnP2Set, btnP2Clear, btnStart;
 	
-	DatabaseReference database;
+	
 	
       
     String player1Secret = null;
@@ -33,7 +33,7 @@ public class SetupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 		
-	    database = FirebaseDatabase.getInstance().getReference();
+	    
 
         etP1 = findViewById(R.id.etPlayer1Secret);
         etP2 = findViewById(R.id.etPlayer2Secret);
@@ -76,7 +76,7 @@ public class SetupActivity extends Activity {
             player1Secret = input;
             tvP1Error.setText("Number set ✔");
             etP1.setEnabled(false);
-			database.setValue(input);
+			
             checkStart();
         }
     }
