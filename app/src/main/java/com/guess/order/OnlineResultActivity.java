@@ -6,10 +6,18 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class OnlineResultActivity extends Activity {
 
     TextView tvWinner, tvScoreSummary;
     Button btnPlayAgain, btnClose;
+
+    String roomCode;
+    String myRole;
+
+    DatabaseReference roomRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +31,20 @@ public class OnlineResultActivity extends Activity {
 
         Intent intent = getIntent();
 
-        // ✅ Data sent from OnlineGameActivity
+        // 🔑 Data from GameActivity
         String result = intent.getStringExtra("RESULT");
         String mySecret = intent.getStringExtra("MY_SECRET");
         String opponentSecret = intent.getStringExtra("OPPONENT_SECRET");
         int attempts = intent.getIntExtra("ATTEMPTS", 0);
 
-        // Winner text
+        roomCode = intent.getStringExtra("ROOM_CODE");
+        myRole = intent.getStringExtra("MY_ROLE");
+
+        roomRef = FirebaseDatabase.getInstance()
+                .getReference("rooms")
+                .child(roomCode);
+
+        // ---------------- UI ----------------
         if ("DRAW".equals(result)) {
             tvWinner.setText("It's a Draw!");
         } else {
@@ -42,19 +57,35 @@ public class OnlineResultActivity extends Activity {
                 "\nOpponent Secret: " + opponentSecret
         );
 
-        // 🔁 Play again → go back to main screen (new game)
-        btnPlayAgain.setOnClickListener(v -> {
-            Intent restart =
-                    new Intent(OnlineResultActivity.this, MainActivity.class);
-            restart.setFlags(
-                    Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                    Intent.FLAG_ACTIVITY_NEW_TASK
-            );
-            startActivity(restart);
-            finish();
-        });
+        // 🔁 PLAY AGAIN → SAME ROOM → SETUP
+        btnPlayAgain.setOnClickListener(v -> resetRoomAndRestart());
 
-        // ❌ Close app
-        btnClose.setOnClickListener(v -> finishAffinity());
+        // ❌ CLOSE → DELETE ROOM → EXIT
+        btnClose.setOnClickListener(v -> {
+            roomRef.removeValue();
+            finishAffinity();
+        });
+    }
+
+    // ---------------- RESET GAME ----------------
+    private void resetRoomAndRestart() {
+
+        // Clear previous game data
+        roomRef.child("secrets").removeValue();
+        roomRef.child("guesses").removeValue();
+        roomRef.child("started").removeValue();
+
+        // Mark player as active again
+        roomRef.child("players").child(myRole).setValue(true);
+
+        Intent intent = new Intent(
+                OnlineResultActivity.this,
+                OnlineSetupActivity.class
+        );
+        intent.putExtra("ROOM_CODE", roomCode);
+        intent.putExtra("MY_ROLE", myRole);
+
+        startActivity(intent);
+        finish();
     }
 }
