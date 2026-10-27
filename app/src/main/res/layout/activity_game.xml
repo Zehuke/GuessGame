@@ -1,177 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="12dp"
-	android:background="@drawable/game_activity_background"
-	android:gravity="center_horizontal">
-
-    <EditText
-        android:id="@+id/etGuessP1"
-        android:hint="Player 1 guess"
-        android:inputType="number" 
-		android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_edit_text"
-	/>
-
-    <Button
-        android:id="@+id/btnSubmitP1"
-        android:text="Submit"
-		android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-		android:layout_marginTop="10dp" 
-		android:layout_marginBottom="8dp"
-		android:layout_gravity="left"
-		android:minHeight="48dp"
-		android:textSize="16sp"
-		android:textAllCaps="false"
-		android:background="@drawable/rounded_button"
-		android:textColor="#FFFFFF"
-	/>
-
-    <EditText
-        android:id="@+id/etGuessP2"
-        android:hint="Player 2 guess"
-        android:inputType="number" 
-		android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_edit_text"
-	/>
-
-    <Button
-        android:id="@+id/btnSubmitP2"
-        android:text="Submit" 
-		android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-		android:layout_marginTop="10dp" 
-		android:layout_marginBottom="8dp"
-		android:layout_gravity="left"
-		android:minHeight="48dp"
-		android:textSize="16sp"
-		android:textAllCaps="false"
-		android:background="@drawable/rounded_button"
-		android:textColor="#FFFFFF"
-	/>
-
-    <TextView
-        android:id="@+id/tvWaiting"
-        android:text="Waiting for the players..."
-        android:textSize="12sp" 
-		android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-		android:textStyle="bold" 
-	/>
-
-    <!-- Result Table Header -->
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
-
-		<LinearLayout
-			android:orientation="vertical"
-		    android:layout_width="0dp"
-			android:layout_weight="1"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="23dp">
-
-			<TextView
-				android:text="Player 1"
-			android:textStyle="bold" 
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"/>
-
-			<LinearLayout 
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
-
-				<TextView
-					android:text="Guess"
-				android:textStyle="bold" 
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_weight="1"
-					android:textSize="9sp" />
-
-				<TextView
-					android:text="Number"
-				android:textStyle="bold" 
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_weight="1"
-					android:textSize="9sp"/>
-
-				<TextView
-					android:text="Position"
-				android:textStyle="bold" 
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_weight="1"
-					android:textSize="9sp"/>
-
-			</LinearLayout>
-	    </LinearLayout>
-
-		<LinearLayout
-			android:orientation="vertical"
-		    android:layout_width="0dp"
-			android:layout_weight="1"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="16dp"
-			android:layout_marginTop="23dp">
-
-			<TextView
-				android:text="Player 2"
-			android:textStyle="bold" 
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"/>
-
-			<LinearLayout 
-				android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
-
-				<TextView
-					android:text="Guess"
-				android:textStyle="bold" 
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_weight="1"
-					android:textSize="9sp"/>
-
-				<TextView
-					android:text="Number"
-				android:textStyle="bold" 
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_weight="1"
-					android:textSize="9sp"/>
-
-				<TextView
-					android:text="Position"
-				android:textStyle="bold" 
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_weight="1"
-					android:textSize="9sp"/>
-
-			</LinearLayout>
-	    </LinearLayout>
-	</LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:id="@+id/resultContainer"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
-
-</LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fillViewport="true" android:background="@color/surface">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="18dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="PASS AND PLAY" android:textSize="12sp" android:textStyle="bold"
+            android:letterSpacing="0.12" android:textColor="@color/brand" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="6dp" android:text="Make your guesses"
+            android:textSize="26sp" android:textStyle="bold" android:textColor="@color/ink" />
+        <TextView android:id="@+id/tvWaiting" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="6dp"
+            android:text="Both players submit once each round." android:textSize="14sp" android:textColor="@color/muted" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:layout_marginTop="14dp">
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp" android:background="@drawable/rounded_edit_text">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PLAYER ONE" android:textSize="11sp" android:textStyle="bold" android:textColor="@color/brand" />
+                <EditText android:id="@+id/etGuessP1" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="6dp" android:hint="Guess" android:inputType="number" android:maxLength="4" android:background="@drawable/rounded_edit_text" android:paddingStart="10dp" />
+                <Button android:id="@+id/btnSubmitP1" android:layout_width="match_parent" android:layout_height="48dp" android:text="Submit" android:textAllCaps="false" />
+            </LinearLayout>
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp" android:layout_marginStart="8dp" android:background="@drawable/rounded_edit_text">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PLAYER TWO" android:textSize="11sp" android:textStyle="bold" android:textColor="@color/brand" />
+                <EditText android:id="@+id/etGuessP2" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="6dp" android:hint="Guess" android:inputType="number" android:maxLength="4" android:background="@drawable/rounded_edit_text" android:paddingStart="10dp" />
+                <Button android:id="@+id/btnSubmitP2" android:layout_width="match_parent" android:layout_height="48dp" android:text="Submit" android:textAllCaps="false" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="22dp" android:text="ROUND HISTORY"
+            android:textSize="12sp" android:textStyle="bold" android:letterSpacing="0.1" android:textColor="@color/muted" />
+        <LinearLayout android:id="@+id/resultContainer" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical" android:paddingTop="10dp" />
+    </LinearLayout>
+</ScrollView>

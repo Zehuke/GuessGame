@@ -27,7 +27,8 @@ public class ResultActivity extends Activity {
         String result = intent.getStringExtra("RESULT");
         String secretP1 = intent.getStringExtra("SECRET_P1");
         String secretP2 = intent.getStringExtra("SECRET_P2");
-        int  totalAttempts= intent.getIntExtra("TOTAL_ATTEMPTS", 0);
+        int attemptsP1 = intent.getIntExtra("ATTEMPTS_P1", 0);
+        int attemptsP2 = intent.getIntExtra("ATTEMPTS_P2", 0);
 
         // Display winner / draw
         if ("DRAW".equals(result)) {
@@ -38,9 +39,10 @@ public class ResultActivity extends Activity {
 
         // Display attempts summary
         tvScoreSummary.setText(
-		"Total Attempts : " + totalAttempts +
-   "\nPlayer 1 Secret Number: " + secretP1 +
-   "\nPlayer 2 Secret Number: " + secretP2
+		"Player 1 · " + attemptsP1 + " guesses" +
+   "\nPlayer 2 · " + attemptsP2 + " guesses" +
+   "\n\nPlayer 1 secret: " + secretP1 +
+   "\nPlayer 2 secret: " + secretP2
         );
 
         // Play again → go to home screen

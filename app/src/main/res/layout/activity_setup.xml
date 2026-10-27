@@ -1,148 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-	android:layout_width="match_parent"
-    android:layout_height="match_parent"
-	android:background="@drawable/home_background"
-	android:gravity="center">
-
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Choose number of digits (4)"
-		android:textStyle="bold" 
-		android:paddingLeft="12dp"/>
-	
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="No zeros or repeated digits allowed"
-		android:paddingLeft="12dp"/>
-
-	<!-- Player 1 -->
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Player 1" 
-		android:layout_marginTop="17dp" />
-
-	<EditText
-		android:id="@+id/etPlayer1Secret"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:hint="Enter your secret number"
-		android:inputType="numberPassword"
-		android:background="@drawable/rounded_edit_text" />
-
-	<TextView
-		android:id="@+id/tvPlayer1Error"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:textColor="#FF0000"
-		android:textSize="12sp" />
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
-
-		<Button
-			android:id="@+id/btnP1Set"
-			android:text="Set" 
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="10dp" 
-			android:layout_marginBottom="8dp"
-			android:minHeight="48dp"
-			android:textSize="16sp"
-			android:textAllCaps="false"
-			android:background="@drawable/rounded_button"
-			android:textColor="#FFFFFF"/>
-
-		<Button
-			android:id="@+id/btnP1Clear"
-			android:text="Clear" 
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="10dp" 
-			android:layout_marginBottom="8dp"
-			android:layout_marginLeft="48dp"
-			android:minHeight="48dp"
-			android:textSize="16sp"
-			android:textAllCaps="false"
-			android:background="@drawable/rounded_button"
-			android:textColor="#FFFFFF"/>
-	</LinearLayout>
-
-	<!-- Player 2 -->
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Player 2"
-		android:layout_marginTop="16dp" />
-
-	<EditText
-		android:id="@+id/etPlayer2Secret"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:hint="Enter your secret number"
-		android:inputType="numberPassword"
-		android:background="@drawable/rounded_edit_text" />
-
-	<TextView
-		android:id="@+id/tvPlayer2Error"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:textColor="#FF0000"
-		android:textSize="12sp" />
-
-	<LinearLayout
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
-
-		<Button
-			android:id="@+id/btnP2Set"
-			android:text="Set" 
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="10dp" 
-			android:layout_marginBottom="8dp"
-			android:minHeight="48dp"
-			android:textSize="16sp"
-			android:textAllCaps="false"
-			android:background="@drawable/rounded_button"
-			android:textColor="#FFFFFF"/>
-
-		<Button
-			android:id="@+id/btnP2Clear" 
-			android:text="Clear" 
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="10dp" 
-			android:layout_marginBottom="8dp"
-			android:layout_marginLeft="48dp"
-			android:minHeight="48dp"
-			android:textSize="16sp"
-			android:textAllCaps="false"
-			android:background="@drawable/rounded_button"
-			android:textColor="#FFFFFF"/>
-	</LinearLayout>
-
-	<Button
-		android:id="@+id/btnStartGame"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Start Game"
-		android:layout_marginTop="40dp" 
-		android:layout_marginBottom="8dp"
-		android:paddingLeft="20dp"
-		android:paddingRight="20dp"
-		android:minHeight="48dp"
-		android:textSize="16sp"
-		android:textAllCaps="false"
-		android:alpha="0.4"
-		android:background="@drawable/rounded_button"
-		android:textColor="#FFFFFF"/>
-
-</LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fillViewport="true" android:background="@color/surface">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="20dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="PASS AND PLAY" android:textSize="13sp" android:textStyle="bold"
+            android:letterSpacing="0.12" android:textColor="@color/brand" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:text="Set your secret codes"
+            android:textSize="27sp" android:textStyle="bold" android:textColor="@color/ink" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="6dp" android:text="Use four different digits from 1 to 9. Keep your number hidden from the other player."
+            android:textSize="14sp" android:textColor="@color/muted" />
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="18dp"
+            app:cardBackgroundColor="@color/card" app:cardCornerRadius="18dp" app:cardElevation="0dp"
+            app:strokeColor="@color/line" app:strokeWidth="1dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="16dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PLAYER ONE" android:textSize="12sp" android:textStyle="bold" android:textColor="@color/brand" />
+                <EditText android:id="@+id/etPlayer1Secret" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="8dp" android:hint="Four digit secret" android:inputType="numberPassword" android:maxLength="4" android:background="@drawable/rounded_edit_text" android:paddingStart="14dp" android:textSize="19sp" />
+                <TextView android:id="@+id/tvPlayer1Error" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#B42318" android:textSize="13sp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnP1Set" android:layout_width="0dp" android:layout_weight="1" android:layout_height="48dp" android:text="Lock secret" android:textAllCaps="false" app:cornerRadius="13dp" />
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnP1Clear" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_width="0dp" android:layout_weight="1" android:layout_height="48dp" android:layout_marginStart="8dp" android:text="Change" android:textAllCaps="false" app:cornerRadius="13dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="12dp"
+            app:cardBackgroundColor="@color/card" app:cardCornerRadius="18dp" app:cardElevation="0dp"
+            app:strokeColor="@color/line" app:strokeWidth="1dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="16dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PLAYER TWO" android:textSize="12sp" android:textStyle="bold" android:textColor="@color/brand" />
+                <EditText android:id="@+id/etPlayer2Secret" android:layout_width="match_parent" android:layout_height="54dp" android:layout_marginTop="8dp" android:hint="Four digit secret" android:inputType="numberPassword" android:maxLength="4" android:background="@drawable/rounded_edit_text" android:paddingStart="14dp" android:textSize="19sp" />
+                <TextView android:id="@+id/tvPlayer2Error" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#B42318" android:textSize="13sp" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnP2Set" android:layout_width="0dp" android:layout_weight="1" android:layout_height="48dp" android:text="Lock secret" android:textAllCaps="false" app:cornerRadius="13dp" />
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnP2Clear" style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_width="0dp" android:layout_weight="1" android:layout_height="48dp" android:layout_marginStart="8dp" android:text="Change" android:textAllCaps="false" app:cornerRadius="13dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton android:id="@+id/btnStartGame" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="16dp" android:text="Start the duel" android:textAllCaps="false" android:alpha="0.45" app:cornerRadius="16dp" />
+    </LinearLayout>
+</ScrollView>

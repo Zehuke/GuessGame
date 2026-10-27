@@ -2,56 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/home_background"
+    android:background="@color/surface"
     android:gravity="center"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MATCH COMPLETE"
+        android:textColor="@color/brand"
+        android:textSize="13sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvWinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
         android:text="Player X Wins!"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textColor="@color/ink"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvScoreSummary"
-        android:text="Player1 attempts: 10\nPlayer2 attempts: 12"
-        android:textSize="14sp"
-        android:layout_marginTop="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:text="Player1 attempts: 10&#10;Player2 attempts: 12"
+        android:textColor="@color/muted"
+        android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/btnPlayAgain"
-            android:text="Play Again"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:minHeight="48dp"
-            android:textSize="16sp"
-            android:textAllCaps="false"
-            android:background="@drawable/rounded_button"
-            android:textColor="#FFFFFF"/>
+    <Button
+        android:id="@+id/btnPlayAgain"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="28dp"
+        android:text="Play again"
+        android:textAllCaps="false" />
 
-        <Button
-            android:id="@+id/btnClose"
-            android:text="Close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:minHeight="48dp"
-            android:textSize="16sp"
-            android:textAllCaps="false"
-            android:background="@drawable/rounded_button"
-            android:textColor="#FFFFFF"/>
-    </LinearLayout>
-
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="8dp"
+        android:text="Close"
+        android:textAllCaps="false" />
 </LinearLayout>

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="purple_500">#9C27B0</color>
+    <color name="colorPrimary">#5856D6</color>
+    <color name="colorPrimaryDark">#3735A7</color>
+    <color name="colorAccent">#34A88B</color>
+    <color name="purple_500">#5856D6</color>
+    <color name="brand">#5856D6</color>
+    <color name="surface">#F5F6FA</color>
+    <color name="card">#FFFFFF</color>
+    <color name="ink">#191A24</color>
+    <color name="muted">#74778A</color>
+    <color name="line">#E5E7EF</color>
 </resources>

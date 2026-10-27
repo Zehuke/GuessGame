@@ -1,27 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="24dp"
-	android:background="@drawable/home_background">
-
-    <Button
-        android:id="@+id/btnOffline"
-        android:text="Offline Game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-		android:minHeight="48dp"
-	    android:textColor="#FFFFFF"
-		android:background="@drawable/rounded_button"/>
-
-    <Button
-        android:id="@+id/btnOnline"
-        android:text="Online Game"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-	    android:minHeight="48dp"
-		android:textColor="#FFFFFF"
-	    android:background="@drawable/rounded_button"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:gravity="center_vertical"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="24dp" android:background="@color/surface">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="CHOOSE YOUR GAME" android:textSize="13sp" android:textStyle="bold"
+        android:letterSpacing="0.12" android:textColor="@color/brand" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" android:text="Same rules.\nYour way to play."
+        android:textSize="30sp" android:textStyle="bold" android:textColor="@color/ink" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" android:text="Play offline on one phone, connect to a nearby device, or meet online."
+        android:textSize="15sp" android:textColor="@color/muted" />
+    <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="28dp"
+        app:cardBackgroundColor="@color/card" app:cardCornerRadius="20dp"
+        app:cardElevation="0dp" app:strokeColor="@color/line" app:strokeWidth="1dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="18dp">
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnOffline"
+                android:layout_width="match_parent" android:layout_height="54dp"
+                android:text="Pass and play" android:textAllCaps="false" app:cornerRadius="15dp" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnNearby"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_width="match_parent"
+                android:layout_height="54dp" android:layout_marginTop="10dp"
+                android:text="Nearby devices" android:textAllCaps="false" app:cornerRadius="15dp" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnOnline"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_width="match_parent"
+                android:layout_height="54dp" android:layout_marginTop="10dp"
+                android:text="Online multiplayer" android:textAllCaps="false" app:cornerRadius="15dp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.button.MaterialButton android:id="@+id/btnAccount"
+        style="@style/Widget.MaterialComponents.Button.TextButton" android:layout_width="match_parent"
+        android:layout_height="52dp" android:layout_marginTop="12dp"
+        android:text="Account, stats and friends" android:textAllCaps="false" />
 </LinearLayout>

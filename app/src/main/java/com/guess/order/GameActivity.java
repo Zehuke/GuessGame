@@ -3,6 +3,7 @@ package com.guess.order;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -39,6 +40,7 @@ public class GameActivity extends Activity {
        resultContainer = findViewById(R.id.resultContainer);
 
         btnSubmitP1.setOnClickListener(v -> {
+            if (guessP1 != null) return;
             String input = etGuessP1.getText().toString().trim();
 
             if (!isValidGuess(input)) {
@@ -47,6 +49,7 @@ public class GameActivity extends Activity {
             }
 
             guessP1 = input;
+            btnSubmitP1.setEnabled(false);
             attemptsP1++;
             tvWaiting.setText("Player 1 submitted. Waiting for Player 2...");
 			tvWaiting.setTextColor(Color.BLACK);
@@ -54,6 +57,7 @@ public class GameActivity extends Activity {
         });
 
         btnSubmitP2.setOnClickListener(v -> {
+            if (guessP2 != null) return;
             String input = etGuessP2.getText().toString().trim();
 
             if (!isValidGuess(input)) {
@@ -62,6 +66,7 @@ public class GameActivity extends Activity {
             }
 
             guessP2 = input;
+            btnSubmitP2.setEnabled(false);
             attemptsP2++;
             tvWaiting.setText("Player 2 submitted. Waiting for Player 1...");
 			tvWaiting.setTextColor(Color.BLACK);
@@ -72,13 +77,7 @@ public class GameActivity extends Activity {
     // ---------- HELPER METHODS ----------
 
     private boolean isValidGuess(String guess) {
-        if (guess.length() != 4) return false;
-        if (guess.contains("0")) return false;
-
-        Set<Character> set = new HashSet<>();
-        for (char c : guess.toCharArray()) set.add(c);
-
-        return set.size() == 4;
+        return GameRules.isValidNumber(guess);
     }
 
     private void checkBothSubmitted() {
@@ -86,8 +85,8 @@ public class GameActivity extends Activity {
 
             tvWaiting.setText("");
 
-            int[] resultP1 = calculateResult(guessP1, secretP2);
-            int[] resultP2 = calculateResult(guessP2, secretP1);
+            int[] resultP1 = GameRules.score(guessP1, secretP2);
+            int[] resultP2 = GameRules.score(guessP2, secretP1);
 
             addResultRow(guessP1, resultP1, guessP2, resultP2);
             
@@ -95,118 +94,41 @@ public class GameActivity extends Activity {
 
             guessP1 = null;
             guessP2 = null;
+            btnSubmitP1.setEnabled(true);
+            btnSubmitP2.setEnabled(true);
 
             etGuessP1.setText("");
             etGuessP2.setText("");
         }
     }
 
-    private int[] calculateResult(String guess, String secret) {
-        int position = 0;
-        int trueCount = 0;
-
-        for (int i = 0; i < 4; i++) {
-            if (guess.charAt(i) == secret.charAt(i)) {
-                position++;
-            }  if (secret.indexOf(guess.charAt(i)) != -1) {
-                trueCount++;
-            }
-        }
-        return new int[]{trueCount, position};
-    }
-
     private void addResultRow(
         String p1Guess, int[] p1Result,
         String p2Guess, int[] p2Result
 ) {
-
-    // One row per round
-    LinearLayout row = new LinearLayout(this);
-    row.setOrientation(LinearLayout.HORIZONTAL);
-    row.setLayoutParams(new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-    ));
-
-    // Each cell = equal width
-    // --- Player 1 cells ---
-LinearLayout.LayoutParams p1Params =
-        new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-		
-		
-		    // Player 2 cells
-    TextView p2GuessTv = new TextView(this);
-    TextView p2NumTv = new TextView(this);
-    TextView p2PosTv = new TextView(this);
-		
-
-      // --- Player 2 cells ---
-int marginPx = (int) (16 * getResources().getDisplayMetrics().density);
-
-// First cell (with margin)
-LinearLayout.LayoutParams p2GuessParams =
-        new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-p2GuessParams.setMarginStart(marginPx);
-p2GuessTv.setLayoutParams(p2GuessParams);
-
-// Remaining cells (no margin)
-LinearLayout.LayoutParams p2NumParams =
-        new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-p2NumTv.setLayoutParams(p2NumParams);
-
-LinearLayout.LayoutParams p2PosParams =
-        new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-p2PosTv.setLayoutParams(p2PosParams);
-
-    // Player 1 cells
-    TextView p1GuessTv = new TextView(this);
-    TextView p1NumTv = new TextView(this);
-    TextView p1PosTv = new TextView(this);
-
-
-    // Apply params
-    p1GuessTv.setLayoutParams(p1Params);
-    p1NumTv.setLayoutParams(p1Params);
-    p1PosTv.setLayoutParams(p1Params);
-    
-	  
-
-    // Set text
-    p1GuessTv.setText(p1Guess);
-    p1NumTv.setText(String.valueOf(p1Result[0]));
-    p1PosTv.setText(String.valueOf(p1Result[1]));
-
-    p2GuessTv.setText(p2Guess);
-    p2NumTv.setText(String.valueOf(p2Result[0]));
-    p2PosTv.setText(String.valueOf(p2Result[1]));
-
-    // Optional: text size
-    p1GuessTv.setTextSize(12);
-    p1NumTv.setTextSize(12);
-    p1PosTv.setTextSize(12);
-    p2GuessTv.setTextSize(12);
-    p2NumTv.setTextSize(12);
-    p2PosTv.setTextSize(12);
-	
-	//--- Set text color to white ---
-p1GuessTv.setTextColor(Color.BLACK);
-p1NumTv.setTextColor(Color.BLACK);
-p1PosTv.setTextColor(Color.BLACK);
-p2GuessTv.setTextColor(Color.BLACK);
-p2NumTv.setTextColor(Color.BLACK);
-p2PosTv.setTextColor(Color.BLACK);
-
-    // Add all 6 cells
-    row.addView(p1GuessTv);
-    row.addView(p1NumTv);
-    row.addView(p1PosTv);
-    row.addView(p2GuessTv);
-    row.addView(p2NumTv);
-    row.addView(p2PosTv);
-
-    // Add row to container
-    resultContainer.addView(row);
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setPadding(0, 0, 0, dp(8));
+        row.addView(playerResult("PLAYER ONE", p1Guess, p1Result));
+        row.addView(playerResult("PLAYER TWO", p2Guess, p2Result), new LinearLayout.LayoutParams(0, -2, 1));
+        resultContainer.addView(row);
 }
+
+    private View playerResult(String label, String guess, int[] score) {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(12), dp(10), dp(8), dp(10));
+        card.setBackgroundResource(R.drawable.rounded_edit_text);
+        LinearLayout.LayoutParams outer = new LinearLayout.LayoutParams(0, -2, 1);
+        outer.setMarginEnd(dp(6));
+        card.setLayoutParams(outer);
+        TextView heading = new TextView(this); heading.setText(label); heading.setTextSize(10); heading.setTextColor(0xff5856d6);
+        TextView guessText = new TextView(this); guessText.setText(guess); guessText.setTextSize(21); guessText.setTextColor(0xff191a24); guessText.setTypeface(null, android.graphics.Typeface.BOLD);
+        TextView scoreText = new TextView(this); scoreText.setText("True " + score[0] + "   Position " + score[1]); scoreText.setTextSize(12); scoreText.setTextColor(0xff74778a);
+        card.addView(heading); card.addView(guessText); card.addView(scoreText); return card;
+    }
+
+    private int dp(int value) { return (int)(value * getResources().getDisplayMetrics().density + .5f); }
 
     private void checkWin(int[] p1Result, int[] p2Result) {
 
@@ -226,7 +148,8 @@ p2PosTv.setTextColor(Color.BLACK);
 
             intent.putExtra("SECRET_P1", secretP1);
             intent.putExtra("SECRET_P2", secretP2);
-            intent.putExtra("TOTAL_ATTEMPTS", attemptsP1);
+            intent.putExtra("ATTEMPTS_P1", attemptsP1);
+            intent.putExtra("ATTEMPTS_P2", attemptsP2);
             startActivity(intent);
             finish();
         }

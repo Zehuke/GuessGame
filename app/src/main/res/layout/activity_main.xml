@@ -1,75 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@drawable/home_background">
-
-    <TextView
-        android:id="@+id/tvTitle1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="True"
-        android:textSize="32sp"
-        android:textStyle="bold" 
-		
-		android:fontFamily="@font/rubik_storm_regular"
-	    
-		/>
-		
-		
-		 <TextView
-        android:id="@+id/tvTitle2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="&amp;"
-        android:textSize="23sp"
-        android:textStyle="bold" 
-		
-		android:fontFamily="@font/rubik_storm_regular"
-	    
-		/>
-		
-	 <TextView
-        android:id="@+id/tvTitle3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Position"
-        android:textSize="23sp"
-        android:textStyle="bold" 
-		
-		android:fontFamily="@font/rubik_storm_regular"
-	    
-		/>
-		
-	 <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Guess Game"
-        android:textSize="32sp"
-        android:textStyle="bold" 
-		
-		android:fontFamily="@font/rubik_storm_regular"
-	    android:layout_marginBottom="8dp"
-		/>
-
-    
-
-    <Button
-        android:id="@+id/btnPlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Play"
-        android:layout_marginTop="40dp" 
-		android:layout_marginBottom="8dp"
-		android:layout_marginLeft="8dp"
-	    android:layout_marginRight="8dp"
-		android:minHeight="48dp"
-		android:textSize="16sp"
-		android:textAllCaps="false"
-		android:background="@drawable/rounded_button"
-		android:textColor="#FFFFFF"/>
-        
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:gravity="center_vertical"
+    android:padding="26dp" android:background="@color/surface">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="THE NUMBER DUEL" android:textStyle="bold" android:textSize="13sp"
+        android:letterSpacing="0.14" android:textColor="@color/brand" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="14dp" android:text="True &amp;\nPosition"
+        android:textSize="48sp" android:lineSpacingMultiplier="0.92"
+        android:textStyle="bold" android:textColor="@color/ink" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="14dp" android:text="Crack the code. Read the clues. Beat your opponent."
+        android:textSize="17sp" android:textColor="@color/muted" />
+    <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="30dp"
+        app:cardBackgroundColor="@color/card" app:cardCornerRadius="22dp"
+        app:cardElevation="0dp" app:strokeColor="@color/line" app:strokeWidth="1dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="20dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="HOW TO PLAY" android:textStyle="bold" android:textSize="12sp"
+                android:letterSpacing="0.1" android:textColor="@color/muted" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" android:text="Choose four different digits from 1 to 9.\n\nTrue counts matching digits. Position counts exact spots."
+                android:textSize="15sp" android:lineSpacingExtra="3dp" android:textColor="@color/ink" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.button.MaterialButton android:id="@+id/btnPlay"
+        android:layout_width="match_parent" android:layout_height="58dp"
+        android:layout_marginTop="28dp" android:text="Choose a game mode"
+        android:textAllCaps="false" android:textSize="16sp" app:cornerRadius="17dp" />
 </LinearLayout>

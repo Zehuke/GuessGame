@@ -1,42 +1,75 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-	android:background="@drawable/home_background">
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fillViewport="true" android:background="@color/surface">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="24dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="PLAY ONLINE" android:textStyle="bold" android:textSize="13sp"
+            android:letterSpacing="0.12" android:textColor="@color/brand" />
+        <TextView android:id="@+id/tvGreeting" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="8dp"
+            android:text="Find your next opponent" android:textSize="28sp"
+            android:textStyle="bold" android:textColor="@color/ink" />
+        <TextView android:id="@+id/tvStatus" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="8dp"
+            android:text="Choose how you want to play." android:textSize="15sp"
+            android:textColor="@color/muted" />
 
-    <Button
-        android:id="@+id/btnCreateRoom"
-        android:text="Create Room"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-	    android:minHeight="48dp"
-	    android:textColor="#FFFFFF"
-		android:background="@drawable/rounded_button"/>
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="24dp"
+            app:cardCornerRadius="20dp" app:cardElevation="0dp" app:strokeColor="@color/line"
+            app:strokeWidth="1dp" app:cardBackgroundColor="@color/card">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="18dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Quick start" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/ink" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnQuickMatch"
+                    android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="12dp"
+                    android:text="Quick Match" android:textAllCaps="false" android:textSize="16sp"
+                    app:cornerRadius="16dp" app:icon="@android:drawable/ic_media_play" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnCancelMatch"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_width="match_parent"
+                    android:layout_height="48dp" android:layout_marginTop="8dp" android:text="Cancel search"
+                    android:textAllCaps="false" app:cornerRadius="14dp" android:visibility="gone" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-    <EditText
-        android:id="@+id/etRoomCode"
-        android:hint="Enter Room Code"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
-		android:background="@drawable/rounded_edit_text"/>
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="14dp"
+            app:cardCornerRadius="20dp" app:cardElevation="0dp" app:strokeColor="@color/line"
+            app:strokeWidth="1dp" app:cardBackgroundColor="@color/card">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="18dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Room code" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/ink" />
+                <EditText android:id="@+id/etRoomCode" android:layout_width="match_parent"
+                    android:layout_height="54dp" android:layout_marginTop="8dp" android:hint="6-character code"
+                    android:singleLine="true" android:inputType="textCapCharacters" android:maxLength="6"
+                    android:letterSpacing="0.16" android:textColor="@color/ink" android:paddingStart="14dp"
+                    android:background="@drawable/rounded_edit_text" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginTop="8dp">
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnCreateRoom"
+                        android:layout_width="0dp" android:layout_weight="1" android:layout_height="52dp"
+                        android:text="Create public" android:textAllCaps="false" app:cornerRadius="14dp" />
+                    <com.google.android.material.button.MaterialButton android:id="@+id/btnJoinRoom"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton" android:layout_width="0dp"
+                        android:layout_weight="1" android:layout_height="52dp" android:layout_marginStart="10dp"
+                        android:text="Join code" android:textAllCaps="false" app:cornerRadius="14dp" />
+                </LinearLayout>
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnCreatePrivate"
+                    style="@style/Widget.MaterialComponents.Button.TextButton" android:layout_width="match_parent"
+                    android:layout_height="48dp" android:layout_marginTop="4dp" android:text="Create private room"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-    <Button
-        android:id="@+id/btnJoinRoom"
-        android:text="Join Room"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-	    android:minHeight="48dp"
-	    android:textColor="#FFFFFF"
-		android:background="@drawable/rounded_button"/>
-
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_marginTop="16dp"
-        android:text=""
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="26dp" android:text="PUBLIC ROOMS" android:textStyle="bold"
+            android:textSize="13sp" android:letterSpacing="0.1" android:textColor="@color/muted" />
+        <LinearLayout android:id="@+id/roomsContainer" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="8dp" />
+    </LinearLayout>
+</ScrollView>
